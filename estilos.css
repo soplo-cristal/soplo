@@ -1,0 +1,1088 @@
+/* ===================================================================
+   SOPLO · Anillos de cristal estirado a mano
+   Hoja de estilos unica del sitio.
+
+     1. Variables y base
+     2. Utilidades y botones
+     3. Aviso, encabezado y menu
+     4. Buscador
+     5. Portada
+     6. Catalogo y tarjetas
+     7. Ficha de producto
+     8. Bolsa
+     9. Pie de pagina
+    10. Adaptable, movimiento reducido e impresion
+   =================================================================== */
+
+/* ============ 1. VARIABLES Y BASE ============ */
+:root{
+  --tinta:#1c1b1f;
+  --tinta-suave:#6d6a72;
+  --papel:#faf8f6;
+  --papel-hondo:#f1eeeb;
+  --blanco:#ffffff;
+  --linea:#e3ded9;
+  --linea-fuerte:#cfc7c0;
+
+  /* el vidrio: azul frio y ambar de la llama */
+  --vidrio:#4f93c4;
+  --vidrio-hondo:#2c6b98;
+  --llama:#c2521f;
+
+  --ancho:1320px;
+  --radio:4px;
+  --sombra:0 1px 3px rgba(28,27,31,.06);
+  --sombra-alta:0 20px 50px rgba(28,27,31,.13);
+  --transicion:.24s cubic-bezier(.4,0,.2,1);
+  --alto-cabecera:132px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--alto-cabecera) + 20px)}
+
+body{
+  margin:0;
+  background:var(--papel);
+  color:var(--tinta);
+  font-family:'Jost',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-weight:300;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+h1,h2,h3{
+  font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  font-weight:300;
+  line-height:1.12;
+  margin:0 0 .4em;
+}
+h1{font-size:clamp(2.3rem,5vw,3.6rem)}
+h2{font-size:clamp(1.8rem,3.6vw,2.7rem)}
+h3{font-size:1.15rem}
+
+p{margin:0 0 1em}
+
+:focus-visible{outline:2px solid var(--vidrio-hondo);outline-offset:3px}
+
+/* ============ 2. UTILIDADES Y BOTONES ============ */
+.saltar{
+  position:absolute;left:-9999px;top:0;z-index:999;
+  background:var(--tinta);color:var(--blanco);padding:12px 20px;
+}
+.saltar:focus{left:0}
+
+.seccion{
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:84px 26px;
+}
+.franja{
+  max-width:none;
+  background:var(--papel-hondo);
+}
+.franja > *{max-width:var(--ancho);margin-left:auto;margin-right:auto}
+
+.titulo-seccion{text-align:center;margin-bottom:10px}
+.entrada-seccion{
+  text-align:center;
+  color:var(--tinta-suave);
+  max-width:54ch;
+  margin:0 auto 48px;
+}
+
+.centrado{text-align:center}
+
+.migas{
+  font-size:.76rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--tinta-suave);
+}
+.migas a:hover{color:var(--tinta)}
+
+.boton{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border:1px solid var(--tinta);
+  background:var(--tinta);
+  color:var(--blanco);
+  font-family:inherit;
+  font-size:.78rem;
+  font-weight:400;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  padding:16px 34px;
+  border-radius:var(--radio);
+  cursor:pointer;
+  transition:background var(--transicion),color var(--transicion),border-color var(--transicion);
+}
+.boton:hover{background:#000;border-color:#000}
+.boton[disabled],.boton[aria-disabled="true"]{opacity:.4;pointer-events:none}
+
+.boton--linea{background:transparent;color:var(--tinta)}
+.boton--linea:hover{background:var(--tinta);color:var(--blanco)}
+
+.boton--claro{border-color:var(--blanco);color:var(--blanco);background:transparent}
+.boton--claro:hover{background:var(--blanco);color:var(--tinta)}
+
+/* Enlace subrayado que hace de boton, como en las tarjetas del catalogo. */
+.enlace-boton{
+  align-self:flex-start;
+  margin-top:10px;
+  padding:0 0 2px;
+  border:0;
+  border-bottom:1px solid var(--linea-fuerte);
+  background:none;
+  color:var(--tinta);
+  font-family:inherit;
+  font-size:.86rem;
+  cursor:pointer;
+  transition:border-color var(--transicion),color var(--transicion);
+}
+.enlace-boton:hover{border-color:var(--tinta)}
+
+.aviso-js{
+  max-width:62ch;
+  margin:40px auto;
+  padding:20px 24px;
+  border:1px solid var(--linea-fuerte);
+  text-align:center;
+}
+.aviso-js a{text-decoration:underline}
+
+/* ============ 3. AVISO, ENCABEZADO Y MENU ============ */
+.cintillo{
+  background:var(--tinta);
+  color:var(--blanco);
+  text-align:center;
+  padding:10px 20px;
+  font-size:.74rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.cintillo a{border-bottom:1px solid rgba(255,255,255,.45)}
+
+.cabecera{
+  position:sticky;
+  top:0;
+  z-index:60;
+  background:var(--papel);
+  border-bottom:1px solid var(--linea);
+  transition:box-shadow var(--transicion);
+}
+.cabecera.flotando{box-shadow:var(--sombra)}
+
+.cabecera__fila{
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:20px 26px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:16px;
+}
+
+.logo{
+  grid-column:2;
+  justify-self:center;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.9rem;
+  font-weight:300;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  text-indent:.34em;
+  white-space:nowrap;
+}
+.logo small{
+  display:block;
+  font-family:'Jost',sans-serif;
+  font-size:.56rem;
+  letter-spacing:.3em;
+  text-indent:.3em;
+  color:var(--tinta-suave);
+  margin-top:-2px;
+}
+
+.icono{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  width:40px;
+  height:40px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:var(--tinta);
+  cursor:pointer;
+  transition:opacity var(--transicion);
+}
+.icono:hover{opacity:.55}
+.icono svg{width:21px;height:21px}
+
+.icono.menu{display:none;grid-column:1;justify-self:start}
+
+.utilidades{
+  grid-column:3;
+  justify-self:end;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.contador{
+  position:absolute;
+  top:1px;
+  right:-1px;
+  min-width:17px;
+  height:17px;
+  padding:0 4px;
+  border-radius:999px;
+  background:var(--tinta);
+  color:var(--blanco);
+  font-size:.62rem;
+  line-height:17px;
+  text-align:center;
+  transform:scale(0);
+  transition:transform var(--transicion);
+}
+.contador.visible{transform:scale(1)}
+
+.nav{border-top:1px solid var(--linea)}
+.nav__lista{
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:0 26px;
+  display:flex;
+  justify-content:center;
+  gap:38px;
+  list-style:none;
+}
+.nav__enlace{
+  display:block;
+  padding:15px 0;
+  font-size:.76rem;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  border-bottom:1px solid transparent;
+  transition:border-color var(--transicion);
+}
+.nav__enlace:hover,
+.nav__enlace.activo{border-color:var(--tinta)}
+
+/* ============ 4. BUSCADOR ============ */
+.buscador{display:none;border-top:1px solid var(--linea);background:var(--blanco)}
+.buscador.abierto{display:block}
+.buscador form{
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:20px 26px;
+  display:flex;
+  gap:12px;
+}
+.buscador input{
+  flex:1;
+  min-width:0;
+  padding:14px 4px;
+  border:0;
+  border-bottom:1px solid var(--linea-fuerte);
+  background:transparent;
+  font-family:inherit;
+  font-size:1.05rem;
+  color:inherit;
+}
+.buscador input:focus{outline:none;border-color:var(--tinta)}
+
+.resultados{max-width:var(--ancho);margin:0 auto;padding:0 26px 20px}
+.resultados:empty{padding:0}
+.resultados__vacio{margin:0;padding:4px 0 14px;color:var(--tinta-suave)}
+.resultados__lista{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:8px;
+  margin:0;padding:0;list-style:none;
+}
+.resultados__lista a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:8px 10px;
+  border:1px solid transparent;
+  transition:border-color var(--transicion),background var(--transicion);
+}
+.resultados__lista a:hover{border-color:var(--linea);background:var(--papel)}
+.resultados__lista svg,
+.resultados__lista img{width:46px;height:46px;flex:none;object-fit:cover}
+.resultados__lista b{font-weight:400;font-size:.94rem}
+.resultados__lista span span{display:block;font-size:.78rem;color:var(--tinta-suave)}
+
+/* ============ 5. PORTADA ============ */
+.portada{
+  position:relative;
+  background:
+    radial-gradient(ellipse 70% 90% at 74% 42%, rgba(120,178,214,.4), transparent 62%),
+    radial-gradient(ellipse 60% 80% at 22% 68%, rgba(196,166,214,.34), transparent 60%),
+    linear-gradient(160deg,#f7f4f1 0%,#e9eef1 55%,#f4eeea 100%);
+  overflow:hidden;
+}
+.portada__interior{
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:96px 26px 104px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:52px;
+}
+.portada__sello{
+  display:inline-block;
+  margin-bottom:22px;
+  font-size:.72rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--tinta-suave);
+}
+.portada h1{margin-bottom:20px}
+.portada h1 em{font-style:italic;color:var(--vidrio-hondo)}
+.portada__texto{max-width:44ch;font-size:1.12rem;color:#4c4a52}
+.portada__acciones{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+
+.portada__vitrina{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  max-width:520px;
+  justify-self:center;
+}
+.vitrina__hueco{
+  display:grid;
+  place-items:center;
+  aspect-ratio:1/1;
+  background:rgba(255,255,255,.62);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 12px 34px rgba(44,107,152,.12);
+}
+.vitrina__hueco svg{width:84%;height:84%}
+.vitrina__hueco img{width:100%;height:100%;object-fit:cover}
+.vitrina__hueco:nth-child(2),
+.vitrina__hueco:nth-child(3){transform:translateY(-20px)}
+
+/* fila de familias, como los circulos de categoria de una tienda */
+.familias{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:34px;
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:52px 26px 0;
+}
+.familia{
+  width:132px;
+  text-align:center;
+  transition:transform var(--transicion);
+}
+.familia:hover{transform:translateY(-4px)}
+.familia__disco{
+  display:grid;
+  place-items:center;
+  aspect-ratio:1/1;
+  margin-bottom:12px;
+  border-radius:50%;
+  background:var(--papel-hondo);
+  overflow:hidden;
+}
+.familia__disco svg{width:86%;height:86%}
+.familia__disco img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.familia span{
+  font-size:.72rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+.promesas{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--linea);
+  border-block:1px solid var(--linea);
+}
+.promesa{
+  background:var(--papel);
+  padding:34px 24px;
+  text-align:center;
+}
+.promesa svg{width:26px;height:26px;margin:0 auto 12px;color:var(--vidrio-hondo)}
+.promesa b{display:block;font-weight:400;margin-bottom:2px}
+.promesa span{font-size:.86rem;color:var(--tinta-suave)}
+
+/* el taller: bloque oscuro que habla del soplete */
+.taller{
+  background:#17171a;
+  color:rgba(255,255,255,.82);
+}
+.taller__interior{
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:88px 26px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:56px;
+}
+.taller h2{color:var(--blanco)}
+.taller__pasos{list-style:none;margin:28px 0 0;padding:0;counter-reset:paso}
+.taller__pasos li{
+  position:relative;
+  padding-left:52px;
+  margin-bottom:22px;
+  counter-increment:paso;
+}
+.taller__pasos li::before{
+  content:counter(paso,decimal-leading-zero);
+  position:absolute;
+  left:0;
+  top:2px;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.5rem;
+  color:var(--llama);
+}
+.taller__pasos b{display:block;font-weight:400;color:var(--blanco)}
+.taller__pasos span{font-size:.94rem}
+
+.taller__llama{
+  position:relative;
+  display:grid;
+  place-items:center;
+  min-height:340px;
+  background:
+    radial-gradient(circle at 50% 62%, rgba(255,170,70,.5), transparent 55%),
+    radial-gradient(circle at 50% 58%, rgba(120,190,255,.45), transparent 42%),
+    #101013;
+}
+.taller__llama svg{width:62%;height:auto}
+.taller__llama figcaption{
+  position:absolute;
+  bottom:18px;
+  left:0;right:0;
+  text-align:center;
+  font-size:.78rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+}
+
+/* medidas: como saber tu numero de anillo */
+.medidas-guia{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:52px;
+  align-items:start;
+}
+.tabla{width:100%;border-collapse:collapse;font-size:.94rem}
+.tabla th,.tabla td{
+  padding:12px 14px;
+  border-bottom:1px solid var(--linea);
+  text-align:left;
+}
+.tabla th{
+  font-weight:400;
+  font-size:.72rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--tinta-suave);
+}
+
+.pasos-medida{list-style:none;margin:0;padding:0;counter-reset:m}
+.pasos-medida li{
+  position:relative;
+  padding-left:38px;
+  margin-bottom:18px;
+  counter-increment:m;
+}
+.pasos-medida li::before{
+  content:counter(m);
+  position:absolute;left:0;top:0;
+  width:24px;height:24px;
+  border:1px solid var(--linea-fuerte);
+  border-radius:50%;
+  font-size:.78rem;
+  line-height:23px;
+  text-align:center;
+}
+
+.desplegables details{border-bottom:1px solid var(--linea)}
+.desplegables summary{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:22px 2px;
+  font-size:1rem;
+  cursor:pointer;
+  list-style:none;
+}
+.desplegables summary::-webkit-details-marker{display:none}
+.desplegables summary::after{
+  content:'';
+  width:9px;height:9px;
+  border-right:1px solid var(--tinta);
+  border-bottom:1px solid var(--tinta);
+  transform:rotate(45deg) translateY(-3px);
+  transition:transform var(--transicion);
+}
+.desplegables details[open] summary::after{transform:rotate(-135deg) translateY(-3px)}
+.desplegables__cuerpo{padding:0 2px 24px;color:var(--tinta-suave);max-width:70ch}
+
+/* El envoltorio que cambia el dibujo por la foto no debe estorbar al
+   acomodo: display:contents lo saca del layout y deja al svg o al img
+   como hijo directo de su contenedor. */
+.lienzo{display:contents}
+
+/* ============ 6. CATALOGO Y TARJETAS ============ */
+.encabezado-cat{
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:56px 26px 8px;
+  text-align:center;
+}
+.encabezado-cat .migas{margin-bottom:16px}
+.encabezado-cat > p:last-child{max-width:52ch;margin:0 auto;color:var(--tinta-suave)}
+
+.filtros{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:30px;
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:34px 26px 0;
+  border-bottom:1px solid var(--linea);
+}
+.filtro{
+  padding:0 0 14px;
+  border:0;
+  border-bottom:1px solid transparent;
+  background:none;
+  color:var(--tinta-suave);
+  font-family:inherit;
+  font-size:.76rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:color var(--transicion),border-color var(--transicion);
+}
+.filtro:hover{color:var(--tinta)}
+.filtro[aria-selected="true"]{color:var(--tinta);border-color:var(--tinta)}
+
+.rejilla{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:34px 26px;
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:44px 26px 96px;
+}
+
+.pieza{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+.pieza__foto{
+  position:relative;
+  display:grid;
+  place-items:center;
+  aspect-ratio:1/1;
+  margin:0 0 18px;
+  background:var(--papel-hondo);
+  overflow:hidden;
+}
+.pieza__foto svg{
+  width:82%;
+  height:82%;
+  transition:transform var(--transicion);
+}
+.pieza__foto img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform var(--transicion);
+}
+.pieza:hover .pieza__foto svg,
+.pieza:hover .pieza__foto img{transform:scale(1.05)}
+
+.pieza__marca{
+  position:absolute;
+  top:14px;
+  left:14px;
+  font-size:.64rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--tinta-suave);
+}
+
+.pieza__cuerpo{display:flex;flex-direction:column;gap:3px;flex:1}
+.pieza__familia{
+  font-size:.66rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--tinta-suave);
+}
+.pieza__nombre{
+  margin:0;
+  font-family:inherit;
+  font-size:1rem;
+  font-weight:300;
+}
+.pieza__nombre a::after{content:'';position:absolute;inset:0}
+.pieza__colores{
+  font-size:.72rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--tinta-suave);
+  margin-top:2px;
+}
+.pieza__precio{margin:4px 0 0;font-size:1rem}
+.pieza__cuerpo .enlace-boton{position:relative;z-index:2}
+
+.rejilla__vacio{
+  grid-column:1/-1;
+  padding:64px 0;
+  text-align:center;
+  color:var(--tinta-suave);
+}
+
+/* ============ 7. FICHA DE PRODUCTO ============ */
+.ficha{
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:64px;
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:44px 26px 96px;
+  align-items:start;
+}
+.ficha__vista{
+  display:grid;
+  place-items:center;
+  aspect-ratio:1/1;
+  background:var(--papel-hondo);
+  position:sticky;
+  top:calc(var(--alto-cabecera) + 24px);
+}
+.ficha__vista svg{width:78%;height:78%}
+.ficha__vista img{width:100%;height:100%;object-fit:cover}
+
+.ficha__datos > .migas{margin-bottom:22px}
+.ficha__familia{
+  display:block;
+  font-size:.68rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--tinta-suave);
+  margin-bottom:8px;
+}
+.ficha__precio{font-size:1.35rem;margin:0 0 4px}
+.ficha__nota{font-size:.86rem;color:var(--tinta-suave);margin-bottom:26px}
+.ficha__texto{max-width:50ch;margin-bottom:32px}
+
+.campo{margin-bottom:28px}
+.campo__titulo{
+  display:block;
+  font-size:.7rem;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  color:var(--tinta-suave);
+  margin-bottom:12px;
+}
+.campo__pista{margin:12px 0 0;font-size:.84rem;color:var(--tinta-suave)}
+.campo__pista a{border-bottom:1px solid var(--linea-fuerte)}
+
+.medidas{display:flex;flex-wrap:wrap;gap:9px}
+.medida{
+  min-width:52px;
+  padding:13px 16px;
+  border:1px solid var(--linea-fuerte);
+  background:var(--blanco);
+  font-family:inherit;
+  font-size:.9rem;
+  cursor:pointer;
+  transition:all var(--transicion);
+}
+.medida:hover{border-color:var(--tinta)}
+.medida[aria-pressed="true"]{background:var(--tinta);border-color:var(--tinta);color:var(--blanco)}
+
+.cantidad{
+  display:inline-flex;
+  align-items:center;
+  border:1px solid var(--linea-fuerte);
+  background:var(--blanco);
+}
+.cantidad button{
+  width:44px;height:46px;
+  border:0;background:transparent;
+  font-size:1.1rem;font-family:inherit;color:inherit;cursor:pointer;
+  transition:background var(--transicion);
+}
+.cantidad button:hover{background:var(--papel-hondo)}
+.cantidad output{min-width:46px;text-align:center}
+
+.ficha__acciones{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px}
+.ficha__acciones .boton{flex:1 1 262px}
+.ficha__aviso{min-height:22px;font-size:.88rem;color:var(--vidrio-hondo);margin:0 0 22px}
+
+.ficha__vacia{grid-column:1/-1;text-align:center;padding:96px 0}
+
+/* ============ HAZLO TUYO ============
+   El cliente arma su anillo: forma, color, segundo color y medida.
+   El dibujo de la izquierda se rehace con cada eleccion.
+   ==================================== */
+.formas{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.forma{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  padding:12px 8px;
+  border:1px solid var(--linea-fuerte);
+  background:var(--blanco);
+  color:var(--tinta);
+  font-family:inherit;
+  font-size:.76rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:border-color var(--transicion),background var(--transicion);
+}
+.forma svg{width:100%;height:auto;max-width:86px}
+.forma:hover{border-color:var(--vidrio)}
+.forma[aria-pressed="true"]{border-color:var(--tinta);background:var(--papel-hondo)}
+
+.colores{display:flex;flex-wrap:wrap;gap:10px}
+.color{
+  position:relative;
+  width:42px;height:42px;
+  padding:0;
+  border:1px solid var(--linea-fuerte);
+  border-radius:50%;
+  cursor:pointer;
+  transition:transform var(--transicion),border-color var(--transicion);
+}
+.color:hover{transform:scale(1.08)}
+.color[aria-pressed="true"]{
+  border-color:var(--tinta);
+  box-shadow:0 0 0 3px var(--papel), 0 0 0 4px var(--tinta);
+}
+.color--limpio{
+  background:
+    linear-gradient(135deg,#ffffff 0%,#eef5f8 45%,#cfdde5 100%);
+}
+
+/* El primer circulito de la ficha es la foto tal cual, sin tenir. */
+.color--foto::after{
+  content:"";
+  position:absolute;
+  inset:6px;
+  border:2px solid var(--blanco);
+  border-radius:50%;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.18);
+}
+
+.hazlo__resumen{
+  width:100%;
+  padding:18px 20px;
+  border:1px solid var(--linea);
+  background:var(--blanco);
+  font-size:.94rem;
+  line-height:1.7;
+}
+.hazlo__resumen b{font-weight:400}
+.hazlo__resumen dl{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:0}
+.hazlo__resumen dt{color:var(--tinta-suave);font-size:.84rem}
+.hazlo__resumen dd{margin:0}
+
+/* La vista del disenador: arriba el dibujo de su combinacion, abajo las
+   piezas de verdad que mas se le parecen. */
+.prueba{margin:0;display:flex;flex-direction:column;gap:10px}
+.prueba__lienzo{
+  display:grid;place-items:center;
+  aspect-ratio:1/1;
+  background:var(--papel-hondo);
+}
+.prueba__lienzo svg{width:78%;height:78%}
+.prueba__lienzo img{width:100%;height:100%;object-fit:cover;display:block}
+.prueba figcaption{
+  font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--tinta-suave);text-align:center;
+}
+/* La leyenda de la foto tenida es una frase, no una etiqueta: se lee mejor
+   en minusculas y sin tanto espacio entre letras. */
+.prueba--simulada figcaption{
+  letter-spacing:0;text-transform:none;font-size:.8rem;line-height:1.5;
+}
+/* Debajo de la foto, el dibujo de la combinacion exacta va mas chico. */
+.prueba--chica{margin-top:18px;max-width:190px}
+
+.parecidas{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+.parecidas__fila{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.parecida{display:flex;flex-direction:column;gap:7px;font-size:.82rem}
+.parecida__foto{
+  display:grid;place-items:center;aspect-ratio:1/1;
+  background:var(--papel-hondo);overflow:hidden;
+}
+.parecida__foto svg{width:84%;height:84%}
+.parecida__foto img{width:100%;height:100%;object-fit:cover;transition:transform var(--transicion)}
+.parecida:hover .parecida__foto img{transform:scale(1.05)}
+
+/* El selector de forma muestra la foto de una pieza real de esa familia. */
+.forma img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;display:block}
+
+/* ============ 8. BOLSA ============ */
+.bolsa-fondo{
+  position:fixed;inset:0;z-index:80;
+  background:rgba(28,27,31,.4);
+  opacity:0;visibility:hidden;
+  transition:opacity var(--transicion),visibility var(--transicion);
+}
+.bolsa-fondo.visible{opacity:1;visibility:visible}
+
+.bolsa{
+  position:fixed;top:0;right:0;z-index:90;
+  display:flex;flex-direction:column;
+  width:min(440px,100%);
+  height:100dvh;
+  background:var(--papel);
+  box-shadow:var(--sombra-alta);
+  transform:translateX(100%);
+  visibility:hidden;
+  transition:transform var(--transicion),visibility var(--transicion);
+}
+.bolsa.abierta{transform:translateX(0);visibility:visible}
+
+.bolsa__cabeza{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px 26px;
+  border-bottom:1px solid var(--linea);
+}
+.bolsa__cabeza h2{margin:0;font-size:1.4rem}
+.bolsa__cerrar{
+  width:40px;height:40px;
+  border:0;background:transparent;
+  font-size:1.6rem;line-height:1;color:inherit;cursor:pointer;
+  transition:opacity var(--transicion);
+}
+.bolsa__cerrar:hover{opacity:.55}
+
+.bolsa__lista{flex:1;overflow-y:auto;padding:8px 26px}
+.bolsa__vacia{text-align:center;color:var(--tinta-suave);padding:64px 10px}
+
+.renglon{
+  display:grid;
+  grid-template-columns:70px 1fr auto;
+  gap:16px;
+  padding:18px 0;
+  border-bottom:1px solid var(--linea);
+}
+.renglon__foto{
+  display:grid;place-items:center;
+  aspect-ratio:1/1;margin:0;
+  background:var(--papel-hondo);
+}
+.renglon__foto svg{width:88%;height:88%}
+.renglon__foto img{width:100%;height:100%;object-fit:cover}
+.renglon b{display:block;font-weight:400;font-size:.96rem;line-height:1.35}
+.renglon small{color:var(--tinta-suave);font-size:.8rem}
+.renglon__precio{margin:0;white-space:nowrap}
+.renglon__quitar{
+  border:0;background:none;padding:2px 0;
+  font-family:inherit;font-size:.78rem;color:var(--tinta-suave);
+  text-decoration:underline;cursor:pointer;
+}
+.renglon__quitar:hover{color:var(--tinta)}
+.renglon__control{display:flex;align-items:center;gap:12px;margin-top:8px}
+.renglon__control button{
+  width:26px;height:26px;
+  border:1px solid var(--linea-fuerte);
+  background:var(--blanco);
+  font-family:inherit;line-height:1;cursor:pointer;
+}
+.renglon__control button:hover{border-color:var(--tinta)}
+
+.bolsa__pie{padding:22px 26px;border-top:1px solid var(--linea);background:var(--blanco)}
+.bolsa__total{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:1.05rem;margin-bottom:6px;
+}
+.bolsa__total b{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:1.4rem}
+.bolsa__envio{
+  min-height:20px;margin:0 0 14px;
+  font-size:.82rem;color:var(--vidrio-hondo);
+}
+.bolsa__pie .boton{width:100%;margin-bottom:9px}
+.bolsa__nota{margin:8px 0 0;font-size:.79rem;color:var(--tinta-suave);text-align:center}
+
+/* ============ 9. PIE DE PAGINA ============ */
+.boletin{
+  background:var(--papel-hondo);
+  border-top:1px solid var(--linea);
+  padding:72px 26px;
+  text-align:center;
+}
+.boletin__caja{max-width:560px;margin:0 auto}
+.boletin form{display:flex;gap:12px;margin-top:24px}
+.boletin input{
+  flex:1;min-width:0;
+  padding:14px 4px;
+  border:0;border-bottom:1px solid var(--linea-fuerte);
+  background:transparent;font-family:inherit;font-size:1rem;color:inherit;
+}
+.boletin input:focus{outline:none;border-color:var(--tinta)}
+.boletin__gracias{margin:0;width:100%}
+
+.pie{background:var(--tinta);color:rgba(255,255,255,.72);padding-top:68px}
+.pie h3{color:var(--blanco)}
+.pie a:hover{color:var(--blanco)}
+
+.pie__columnas{
+  max-width:var(--ancho);
+  margin:0 auto;
+  padding:0 26px 52px;
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:38px;
+}
+.pie__marca{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.7rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--blanco);
+  margin-bottom:12px;
+}
+.pie__columnas h3{
+  font-family:'Jost',sans-serif;
+  font-size:.72rem;
+  font-weight:400;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+.pie__columnas ul{list-style:none;margin:0;padding:0}
+.pie__columnas li{margin-bottom:11px;font-size:.92rem}
+.pie__columnas p{font-size:.92rem;line-height:1.6}
+
+.redes{display:flex;gap:12px;margin-top:18px}
+.redes a{
+  display:grid;place-items:center;
+  width:38px;height:38px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:50%;
+  transition:background var(--transicion),border-color var(--transicion);
+}
+.redes a:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.5)}
+.redes svg{width:18px;height:18px;fill:currentColor}
+
+.pie__legal{
+  border-top:1px solid rgba(255,255,255,.13);
+  padding:24px 26px;
+  text-align:center;
+  font-size:.8rem;
+  color:rgba(255,255,255,.5);
+}
+
+/* ============ 10. ADAPTABLE ============ */
+@media (max-width:1100px){
+  .rejilla{grid-template-columns:repeat(3,1fr)}
+  .portada__interior,.taller__interior,.medidas-guia,.ficha{
+    grid-template-columns:1fr;
+    gap:44px;
+  }
+  .ficha__vista{position:static;max-width:520px;width:100%;margin:0 auto}
+  .promesas{grid-template-columns:repeat(2,1fr)}
+  .pie__columnas{grid-template-columns:repeat(2,1fr)}
+}
+
+@media (max-width:880px){
+  :root{--alto-cabecera:78px}
+
+  .icono.menu{display:inline-flex}
+  .cabecera__fila{grid-template-columns:1fr auto 1fr}
+
+  .nav{
+    position:fixed;top:0;left:0;z-index:95;
+    width:min(320px,86%);
+    height:100dvh;
+    padding:84px 24px 30px;
+    background:var(--papel);
+    border-right:1px solid var(--linea);
+    border-top:0;
+    overflow-y:auto;
+    transform:translateX(-100%);
+    visibility:hidden;
+    transition:transform var(--transicion),visibility var(--transicion);
+  }
+  .nav.abierto{transform:translateX(0);visibility:visible}
+  .nav__lista{flex-direction:column;gap:0;padding:0}
+  .nav__enlace{
+    padding:16px 0;
+    font-size:.86rem;
+    border-bottom:1px solid var(--linea);
+  }
+  .nav__enlace:hover,.nav__enlace.activo{border-color:var(--linea);color:var(--tinta-suave)}
+  .nav__enlace.activo{color:var(--tinta)}
+
+  .rejilla{grid-template-columns:repeat(2,1fr);gap:26px 16px}
+  .seccion{padding:60px 22px}
+  .familias{gap:20px}
+  .familia{width:104px}
+}
+
+/* En pantallas angostas el nombre de la marca se comia el ancho y los
+   iconos de la derecha se salian de la pantalla. Aqui se encoge. */
+@media (max-width:560px){
+  .cabecera__fila{padding:14px 16px;gap:8px}
+  .logo{min-width:0;font-size:1.3rem;letter-spacing:.22em;text-indent:.22em}
+  .logo small{font-size:.46rem;letter-spacing:.16em;text-indent:.16em}
+  .utilidades{gap:0}
+  .icono{width:36px;height:36px}
+  .icono svg{width:18px;height:18px}
+}
+
+@media (max-width:380px){
+  .logo small{display:none}
+}
+
+@media (max-width:520px){
+  .promesas{grid-template-columns:1fr}
+  .pie__columnas{grid-template-columns:1fr}
+  .buscador form,.boletin form{flex-direction:column}
+  .buscador form .boton,.boletin form .boton{width:100%}
+  .ficha__acciones .boton{min-width:0;width:100%}
+  .portada__vitrina{gap:12px}
+  .logo{font-size:1.4rem;letter-spacing:.26em;text-indent:.26em}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+@media print{
+  .cintillo,.cabecera,.nav,.pie,.boletin,.bolsa,.bolsa-fondo,.saltar{display:none !important}
+  body{background:#fff}
+}

@@ -1,0 +1,20 @@
+Piezas que se quitaron del catalogo.
+
+Aqui estan las fotos de las piezas que salieron de la tienda. No se
+borraron: si alguna vuelve, basta con mover su foto de regreso a
+imagenes/ (y sus colores de colores/ a imagenes/reales/) y agregar la
+pieza al CATALOGO de guion.js.
+
+  aro-cuadro    Aro Ventana, con sus once colores en colores/
+
+  api-confeti   Apilable Confeti
+  aro-azul      Aro Laguna
+  aro-bruma     Aro Neblina
+  aro-cuarzo    Aro Hielo
+  aro-limpio    Aro Ondas
+  aro-trebol    Aro Trebol
+  esp-nube      Espiral Nube
+  flo-limpia    Flor de Musgo
+  got-verde     Gotas de Limon
+  rac-limpio    Racimo de Cuarzos
+  rac-mixto     Racimo de Feria

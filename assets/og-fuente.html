@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Fuente de assets/og.jpg</title>
+<!-- De aqui sale assets/og.jpg, la imagen que se ve al compartir el sitio.
+     Para regenerarla, abrelo a 1200x630 px y toma una captura. -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Jost:wght@300&display=swap" rel="stylesheet">
+<script src="../guion.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0}
+  body{
+    width:1200px;height:630px;overflow:hidden;
+    background:
+      radial-gradient(ellipse 70% 90% at 72% 40%, rgba(120,178,214,.42), transparent 62%),
+      radial-gradient(ellipse 60% 80% at 20% 70%, rgba(196,166,214,.36), transparent 60%),
+      linear-gradient(160deg,#f7f4f1 0%,#e9eef1 55%,#f4eeea 100%);
+    color:#1c1b1f;
+    font-family:'Jost',system-ui,sans-serif;font-weight:300;
+    display:grid;grid-template-columns:1fr 1fr;align-items:center;
+  }
+  .texto{padding:0 0 0 78px}
+  .marca{
+    font-family:'Cormorant Garamond',serif;
+    font-size:44px;letter-spacing:.36em;text-indent:.36em;
+    text-transform:uppercase;margin-bottom:6px;
+  }
+  .sello{
+    font-size:15px;letter-spacing:.3em;text-transform:uppercase;
+    color:#6d6a72;margin-bottom:34px;display:block;
+  }
+  h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:66px;line-height:1.05}
+  h1 em{font-style:italic;color:#2c6b98}
+  p{margin-top:20px;font-size:23px;line-height:1.5;color:#4c4a52;max-width:22ch}
+  .vitrina{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:0 74px 0 24px}
+  .hueco{
+    display:grid;place-items:center;aspect-ratio:1/1;
+    background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.9);
+    box-shadow:0 14px 36px rgba(44,107,152,.14);
+  }
+  .hueco svg{width:86%;height:86%}
+  .hueco:nth-child(2),.hueco:nth-child(3){transform:translateY(-18px)}
+</style>
+</head>
+<body>
+  <div class="texto">
+    <p class="marca">Soplo</p>
+    <span class="sello">Cristal estirado a mano</span>
+    <h1>Vidrio que se queda <em>quieto</em></h1>
+    <p>Aros, espirales, gotas, racimos y flores. Ninguno sale igual al anterior.</p>
+  </div>
+  <div class="vitrina">
+    <div class="hueco" data-pieza="aro-cobalto"></div>
+    <div class="hueco" data-pieza="esp-rubi"></div>
+    <div class="hueco" data-pieza="got-verde"></div>
+    <div class="hueco" data-pieza="aro-ambar"></div>
+  </div>
+</body>
+</html>
