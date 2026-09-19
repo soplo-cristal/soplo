@@ -6,13 +6,30 @@
       <stop offset="70%" stop-color="#5fa8d8"/>
       <stop offset="100%" stop-color="#2a5ba8"/>
     </linearGradient>
+    <linearGradient id="brillo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
   </defs>
+
   <rect width="64" height="64" rx="12" fill="#faf8f6"/>
-  <g transform="translate(32 32) scale(.185) translate(-150 -150)">
-    <path fill-rule="evenodd" fill="url(#v)"
-      d="M150 44 C202 44 248 78 254 126 C260 172 236 218 196 240 C168 256 132 258 104 246
-         C64 228 40 188 42 142 C44 96 82 56 128 46 C135 45 142 44 150 44 Z
-         M153 114 C180 114 200 131 201 154 C202 179 183 199 158 202 C131 205 108 190 104 167
-         C100 142 117 119 142 115 C146 114 149 114 153 114 Z"/>
-  </g>
+
+  <!-- corazon de vidrio -->
+  <path fill="url(#v)"
+    d="M32 54.5
+       C32 54.5 7.5 39.5 7.5 24.5
+       C7.5 16.4 13.7 10.5 21.2 10.5
+       C26.1 10.5 30 13.1 32 17
+       C34 13.1 37.9 10.5 42.8 10.5
+       C50.3 10.5 56.5 16.4 56.5 24.5
+       C56.5 39.5 32 54.5 32 54.5 Z"/>
+
+  <!-- reflejo, para que se lea como vidrio -->
+  <path fill="url(#brillo)"
+    d="M20.8 15.5
+       C16.2 15.5 12.6 19 12.6 23.9
+       C12.6 28.4 14.6 32.6 17.4 36.3
+       C15.6 31.8 15.2 27.6 16.3 23.8
+       C17.3 20.3 19.6 17.6 23 16.3
+       C22.3 15.8 21.6 15.5 20.8 15.5 Z"/>
 </svg>
